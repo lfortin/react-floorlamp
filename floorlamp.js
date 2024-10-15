@@ -60,16 +60,6 @@ class FloorLamp {
       throw new Error(`Component "${componentName}" not found.`);
     }
   }
-
-  // Get the state of a specific component
-  getState(componentName) {
-    return this.#components.get(componentName)?.state || null;
-  }
-
-  // Optional: List all components
-  listComponents() {
-    return Array.from(this.#components.keys());
-  }
 }
 
 module.exports = {
