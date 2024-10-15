@@ -1,0 +1,32 @@
+{
+  "name": "react-floorlamp",
+  "description": "Straightforward state management for React",
+  "version": "0.0.1",
+  "private": true,
+  "homepage": "https://github.com/lfortin/react-floorlamp#readme",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/lfortin/react-floorlamp.git"
+  },
+  "author": {
+    "name": "Laurent Fortin",
+    "email": "laurent.fortin@gmail.com",
+    "url": "http://lfortin.github.io"
+  },
+  "main": "./floorlamp.js",
+  "type": "commonjs",
+  "devDependencies": {
+    "mocha": "^10.5.2",
+    "nyc": "^17.0.0"
+  },
+  "scripts": {
+    "coverage": "nyc --reporter=lcov --reporter=text-summary mocha test/**/*.js",
+    "prepublishOnly": "npm test",
+    "test": "mocha test/**/*.js"
+  },
+  "keywords": [
+    "react",
+    "state"
+  ],
+  "license": "MIT"
+}
