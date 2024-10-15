@@ -18,9 +18,7 @@ To install the latest stable version of `react-floorlamp`:
 // in a file floor-lamp.js
 import { FloorLamp } from "react-floorlamp";
 
-const floorLamp = new FloorLamp();
-
-export floorLamp;
+export const floorLamp = new FloorLamp();
 ```
 
 ## 2-bind a React.Component instance
