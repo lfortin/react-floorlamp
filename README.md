@@ -1,6 +1,6 @@
 # react-floorlamp
 
-[![Node.js (install and test)](https://github.com/lfortin/react-floorlamp/actions/workflows/node.js.yml/badge.svg?event=push)](https://github.com/lfortin/react-floorlamp/actions/workflows/node.js.yml)
+[![install and test](https://github.com/lfortin/react-floorlamp/actions/workflows/node.js.yml/badge.svg?branch=master&event=push)](https://github.com/lfortin/react-floorlamp/actions/workflows/node.js.yml)
 
 Straightforward state management for React. Released under the [MIT License](https://opensource.org/license/mit).
 
