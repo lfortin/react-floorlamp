@@ -24,20 +24,20 @@ export const floorLamp = new FloorLamp();
 ## 2-bind a React.Component instance
 
 ```javascript
-import React from 'react';
-import { floorLamp } from './floor-lamp.js'
+import React from "react";
+import { floorLamp } from "./floor-lamp.js";
 
 class CaptionDisplay extends React.Component {
   constructor(props) {
     super(props);
 
-    floorLamp.addComponent('CaptionDisplay', this);
+    floorLamp.addComponent("CaptionDisplay", this);
 
     // or using a prop value for managing a collection of React.Component instances
     floorLamp.addComponent(`CaptionDisplay${props.id}`, this);
 
     this.state = {
-      caption: 'Default Caption',
+      caption: "Default Caption",
     };
   }
 
@@ -50,16 +50,47 @@ class CaptionDisplay extends React.Component {
     );
   }
 }
-
-export default CaptionDisplay;
 ```
 
 ## 3-update the state from anywhere
 
 ```javascript
-import { floorLamp } from './floor-lamp.js'
+import { floorLamp } from "./floor-lamp.js";
 
-floorLamp.setState('CaptionDisplay', {caption: 'hello world'}, () => {
+floorLamp.setState("CaptionDisplay", { caption: "hello world" }, () => {
   // optional callback
 });
+```
+
+## binding a mock component using a state hook
+
+```javascript
+import { useState, useEffect } from "react";
+import { floorLamp } from "./floor-lamp.js";
+
+function CaptionDisplay(props) {
+  const [caption, setCaption] = useState("Default Caption");
+
+  const mockComponent = {
+    setState: (state) => {
+      if (state.caption) {
+        setCaption(state.caption);
+      }
+    },
+  };
+
+  useEffect(() => {
+    floorLamp.addComponent("CaptionDisplay", mockComponent);
+    return () => {
+      floorLamp.removeComponent("CaptionDisplay");
+    };
+  }, []);
+
+  return (
+    <div>
+      <h1>Caption Display</h1>
+      <p>{caption}</p>
+    </div>
+  );
+}
 ```
