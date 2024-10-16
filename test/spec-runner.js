@@ -24,12 +24,39 @@ describe("react-floor-lamp", () => {
   describe("setState", () => {
     it("should set state", (done) => {
       const component = {
-        setState: () => {
+        setState: (state) => {
+          assert.deepStrictEqual(state, {
+            caption: "hello world",
+            status: "OK",
+          });
           done();
         },
       };
       floorLamp.addComponent("component", component);
-      floorLamp.setState("component", {});
+      floorLamp.setState("component", {
+        caption: "hello world",
+        status: "OK",
+      });
+    });
+    it("should set state with a callback", (done) => {
+      const component = {
+        setState: (state, cb) => {
+          assert.deepStrictEqual(state, {
+            caption: "hello world",
+            status: "OK",
+          });
+          cb();
+        },
+      };
+      floorLamp.addComponent("component", component);
+      floorLamp.setState(
+        "component",
+        {
+          caption: "hello world",
+          status: "OK",
+        },
+        () => done()
+      );
     });
     it("should set state for a list of components", (done) => {
       let count = 0;
