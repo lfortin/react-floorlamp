@@ -31,14 +31,21 @@ class CaptionDisplay extends React.Component {
   constructor(props) {
     super(props);
 
-    floorLamp.addComponent("CaptionDisplay", this);
-
-    // or using a prop value for managing a collection of React.Component instances
-    floorLamp.addComponent(`CaptionDisplay${props.id}`, this);
-
     this.state = {
       caption: "Default Caption",
     };
+  }
+
+  componentDidMount() {
+    floorLamp.addComponent("CaptionDisplay", this);
+
+    // or using a prop value for managing a collection of React.Component instances
+    floorLamp.addComponent(`CaptionDisplay${this.props.id}`, this);
+  }
+
+  componentWillUnmount() {
+    floorLamp.removeComponent("CaptionDisplay");
+    floorLamp.removeComponent(`CaptionDisplay${this.props.id}`);
   }
 
   render() {
