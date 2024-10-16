@@ -34,16 +34,26 @@ describe("react-floor-lamp", () => {
     it("should set state for a list of components", (done) => {
       let count = 0;
       const component = {
-        setState: () => {
+        setState: (state) => {
+          assert.deepStrictEqual(state, {
+            caption: "hello world",
+            status: "OK",
+          });
+
           count++;
-          if (count === 2) {
+
+          if (count === 3) {
             done();
           }
         },
       };
       floorLamp.addComponent("component1", component);
       floorLamp.addComponent("component2", component);
-      floorLamp.setState(["component1", "component2"], {});
+      floorLamp.addComponent("component3", component);
+      floorLamp.setState(["component1", "component2", "component3"], {
+        caption: "hello world",
+        status: "OK",
+      });
     });
   });
 });
