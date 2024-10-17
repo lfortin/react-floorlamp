@@ -10,18 +10,24 @@ To install the latest stable version of `react-floorlamp`:
 
     npm install react-floorlamp
 
-# React state management in 3 easy steps
+# React State Management in 3 Easy Steps
 
-## 1-create your instance of FloorLamp in a module
+Manage state efficiently across your React components in three easy steps.
+
+## Step 1: Create Your Instance of FloorLamp
+
+First, create an instance of `FloorLamp` in a module.
 
 ```javascript
-// in a file floor-lamp.js
+// in a file: floor-lamp.js
 import { FloorLamp } from "react-floorlamp";
 
 export const floorLamp = new FloorLamp();
 ```
 
-## 2-bind a React.Component instance
+## Step 2: Bind a React.Component Instance
+
+Next, bind a React component instance in its lifecycle methods. You can do this in the `componentDidMount` method, where you register the component, and in the `componentWillUnmount` method to ensure proper cleanup.
 
 ```javascript
 import React from "react";
@@ -37,13 +43,15 @@ class CaptionDisplay extends React.Component {
   }
 
   componentDidMount() {
+    // Bind the component instance
     floorLamp.addComponent("CaptionDisplay", this);
 
-    // or using a prop value for managing a collection of React.Component instances
+    // Optionally manage a collection of instances using props
     floorLamp.addComponent(`CaptionDisplay${this.props.id}`, this);
   }
 
   componentWillUnmount() {
+    // Unbind the component instance on unmount
     floorLamp.removeComponent("CaptionDisplay");
     floorLamp.removeComponent(`CaptionDisplay${this.props.id}`);
   }
@@ -59,7 +67,9 @@ class CaptionDisplay extends React.Component {
 }
 ```
 
-## 3-update the state from anywhere
+## Step 3: Update the State from Anywhere
+
+You can update the state from anywhere in your application by calling setState using the `FloorLamp` instance.
 
 ```javascript
 import { floorLamp } from "./floor-lamp.js";
@@ -69,7 +79,9 @@ floorLamp.setState("CaptionDisplay", { caption: "hello world" }, () => {
 });
 ```
 
-## binding a mock component using a state hook
+## Binding a Mock Component Using a State Hook
+
+You can also bind a mock component using a state hook for functional components.
 
 ```javascript
 import { useState, useEffect } from "react";
