@@ -29,7 +29,7 @@ export const floorLamp = new FloorLamp();
 
 Next, bind a React component instance in its lifecycle methods. You can do this in the `componentDidMount` method, where you register the component, and in the `componentWillUnmount` method to ensure proper cleanup.
 
-```javascript
+```jsx
 import React from "react";
 import { floorLamp } from "./floor-lamp.js";
 
@@ -83,7 +83,7 @@ floorLamp.setState("CaptionDisplay", { caption: "hello world" }, () => {
 
 You can also bind a mock component using a state hook for functional components.
 
-```javascript
+```jsx
 import { useState, useEffect } from "react";
 import { floorLamp } from "./floor-lamp.js";
 
