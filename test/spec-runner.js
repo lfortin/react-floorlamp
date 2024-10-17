@@ -3,9 +3,7 @@ const { FloorLamp } = require("../floorlamp");
 
 const floorLamp = new FloorLamp();
 
-// TODO: add more tests
-
-describe("react-floor-lamp", () => {
+describe("react-floorlamp", () => {
   describe("addComponent", () => {
     it("should add component", async () => {
       const component = {};
@@ -80,6 +78,17 @@ describe("react-floor-lamp", () => {
       floorLamp.setState(["component1", "component2", "component3"], {
         caption: "hello world",
         status: "OK",
+      });
+    });
+    it("should throw if component not found", async () => {
+      assert.throws(() => {
+        floorLamp.setState("invalid-component", {});
+      });
+    });
+    it("should throw if component.setState() method not found", async () => {
+      assert.throws(() => {
+        floorLamp.addComponent("component", {});
+        floorLamp.setState("component", {});
       });
     });
   });
