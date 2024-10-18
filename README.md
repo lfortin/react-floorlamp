@@ -74,8 +74,20 @@ You can update the state from anywhere in your application by calling setState u
 ```javascript
 import { floorLamp } from "./floor-lamp.js";
 
+// passing an object
 floorLamp.setState("CaptionDisplay", { caption: "hello world" }, () => {
   // optional callback
+});
+
+// passing an updater function
+floorLamp.setState(prevState => {
+  let count = prevState.count || 0;
+  count++;
+
+  return {
+    caption: "hello world",
+    count: count
+  };
 });
 ```
 
