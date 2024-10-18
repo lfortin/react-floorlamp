@@ -104,6 +104,9 @@ function CaptionDisplay(props) {
 
   const mockComponent = {
     setState: (state) => {
+      if (typeof state === 'function') {
+        // state might be an updater function :)
+      }
       if (state.caption) {
         setCaption(state.caption);
       }
