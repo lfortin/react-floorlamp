@@ -80,7 +80,7 @@ floorLamp.setState("CaptionDisplay", { caption: "hello world" }, () => {
 });
 
 // passing an updater function
-floorLamp.setState(prevState => {
+floorLamp.setState("CaptionDisplay", prevState => {
   let count = prevState.count || 0;
   count++;
 
