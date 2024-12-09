@@ -128,3 +128,11 @@ function CaptionDisplay(props) {
   );
 }
 ```
+
+# License
+
+`react-floorlamp` is released under the [MIT License](https://github.com/lfortin/react-floorlamp/blob/master/LICENSE).
+
+**100% Free:** `react-floorlamp` can be used freely in both proprietary and open-source projects.
+
+**Attribution is required:** You must retain the author's name and the license information in any distributed code. These items do not need to be user-facing and can remain within the codebase.
