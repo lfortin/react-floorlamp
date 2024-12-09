@@ -14,6 +14,10 @@
   },
   "main": "./floorlamp.js",
   "type": "commonjs",
+  "types": "./floorlamp.d.ts",
+  "dependencies": {
+    "@types/react": "^19.0.1"
+  },
   "devDependencies": {
     "mocha": "^10.5.2",
     "nyc": "^17.0.0"
