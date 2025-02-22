@@ -65,9 +65,7 @@ class FloorLamp {
           );
         }
       } else {
-        throw new Error(
-          `Invalid state: must be an object or a function, but got ${typeof state}.`
-        );
+        throw new Error(`State update on component "${componentName}" failed: must be an object or a function.`);
       }
     } else {
       throw new Error(`Component "${componentName}" not found.`);

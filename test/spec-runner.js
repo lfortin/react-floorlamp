@@ -110,30 +110,69 @@ describe("react-floorlamp", () => {
       });
     });
     it("should throw if state is not an object or a function", async () => {
-      assert.throws(() => {
-        floorLamp.setState("component", null);
-      });
-      assert.throws(() => {
-        floorLamp.setState("component", undefined);
-      });
-      assert.throws(() => {
-        floorLamp.setState("component", "hello world");
-      });
-      assert.throws(() => {
-        floorLamp.setState("component", 123);
-      });
-      assert.throws(() => {
-        floorLamp.setState("component", true);
-      });
-      assert.throws(() => {
-        floorLamp.setState("component", false);
-      });
-      assert.throws(() => {
-        floorLamp.setState("component", []);
-      });
-      assert.throws(() => {
-        floorLamp.setState("component", () => {});
-      });
+      floorLamp.addComponent("component", {});
+
+      assert.throws(
+        () => {
+          floorLamp.setState("component", null);
+        },
+        (err) => {
+          assert.strictEqual(
+            err.message,
+            `State update on component "component" failed: must be an object or a function.`
+          );
+          return true;
+        }
+      );
+
+      assert.throws(
+        () => {
+          floorLamp.setState("component", undefined);
+        },
+        (err) => {
+          assert.strictEqual(
+            err.message,
+            `State update on component "component" failed: must be an object or a function.`
+          );
+          return true;
+        }
+      );
+      assert.throws(
+        () => {
+          floorLamp.setState("component", "hello world");
+        },
+        (err) => {
+          assert.strictEqual(
+            err.message,
+            `State update on component "component" failed: must be an object or a function.`
+          );
+          return true;
+        }
+      );
+      assert.throws(
+        () => {
+          floorLamp.setState("component", 123);
+        },
+        (err) => {
+          assert.strictEqual(
+            err.message,
+            `State update on component "component" failed: must be an object or a function.`
+          );
+          return true;
+        }
+      );
+      assert.throws(
+        () => {
+          floorLamp.setState("component", true);
+        },
+        (err) => {
+          assert.strictEqual(
+            err.message,
+            `State update on component "component" failed: must be an object or a function.`
+          );
+          return true;
+        }
+      );
     });
   });
 });
