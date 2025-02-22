@@ -24,6 +24,8 @@
 
 Object.defineProperty(exports, "__esModule", { value: true });
 
+const { useState, useEffect } = require("react");
+
 class FloorLamp {
   #components;
 
@@ -50,12 +52,21 @@ class FloorLamp {
       }
     } else if (this.#components.has(componentName)) {
       const component = this.#components.get(componentName);
-      if (component.setState) {
-        // Update the component's state with optional callback
-        component.setState(state, cb);
+
+      if (
+        (typeof state === "object" && state !== null) ||
+        typeof state === "function"
+      ) {
+        if (component.setState) {
+          component.setState(state, cb);
+        } else {
+          throw new Error(
+            `Component "${componentName}" does not have a setState method.`
+          );
+        }
       } else {
         throw new Error(
-          `Component "${componentName}" does not have a setState method.`
+          `Invalid state: must be an object or a function, but got ${typeof state}.`
         );
       }
     } else {
@@ -64,6 +75,33 @@ class FloorLamp {
   }
 }
 
+const floorLamp = new FloorLamp();
+
+function useFloorLamp(key, initialState = {}) {
+  const [state, setState] = useState(initialState);
+
+  useEffect(() => {
+    const mockComponent = {
+      setState: (newState) => {
+        if (typeof newState === "function") {
+          setState((prev) => ({ ...prev, ...newState(prev) }));
+        } else {
+          setState((prev) => ({ ...prev, ...newState }));
+        }
+      },
+    };
+
+    floorLamp.addComponent(key, mockComponent);
+    return () => {
+      floorLamp.removeComponent(key);
+    };
+  }, [key]);
+
+  return [state, (newState) => floorLamp.setState(key, newState)];
+}
+
 module.exports = {
   FloorLamp,
+  floorLamp,
+  useFloorLamp,
 };

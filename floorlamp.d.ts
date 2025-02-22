@@ -18,6 +18,13 @@ export declare class FloorLamp {
   ): void;
 }
 
+export declare const floorLamp: FloorLamp;
+
+export declare function useFloorLamp(
+  key: string,
+  initialState?: Record<string, any>
+): [Record<string, any>, (newState: Record<string, any>) => void];
+
 interface MockComponent {
   setState(
     state:

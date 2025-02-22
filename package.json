@@ -15,12 +15,14 @@
   "main": "./floorlamp.js",
   "type": "commonjs",
   "types": "./floorlamp.d.ts",
-  "dependencies": {
-    "@types/react": "^19.0.1"
+  "peerDependencies": {
+    "@types/react": "^19.0.1",
+    "react": "*"
   },
   "devDependencies": {
     "mocha": "^11.0.1",
-    "nyc": "^17.0.0"
+    "nyc": "^17.0.0",
+    "react": "^19.0.0"
   },
   "scripts": {
     "coverage": "nyc --reporter=lcov --reporter=text-summary mocha test/**/*.js",

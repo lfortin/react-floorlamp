@@ -1,5 +1,5 @@
 const assert = require("node:assert");
-const { FloorLamp } = require("../floorlamp");
+const { FloorLamp, useFloorLamp } = require("../floorlamp.js");
 
 const floorLamp = new FloorLamp();
 
@@ -20,7 +20,7 @@ describe("react-floorlamp", () => {
     });
   });
   describe("setState", () => {
-    it("should set state", (done) => {
+    it("should set state using an object", (done) => {
       const component = {
         setState: (state) => {
           assert.deepStrictEqual(state, {
@@ -34,6 +34,24 @@ describe("react-floorlamp", () => {
       floorLamp.setState("component", {
         caption: "hello world",
         status: "OK",
+      });
+    });
+    it("should set state using a function", (done) => {
+      const component = {
+        setState: (state) => {
+          assert.deepStrictEqual(state(), {
+            caption: "hello world",
+            status: "OK",
+          });
+          done();
+        },
+      };
+      floorLamp.addComponent("component", component);
+      floorLamp.setState("component", () => {
+        return {
+          caption: "hello world",
+          status: "OK",
+        };
       });
     });
     it("should set state with a callback", (done) => {
@@ -89,6 +107,32 @@ describe("react-floorlamp", () => {
       assert.throws(() => {
         floorLamp.addComponent("component", {});
         floorLamp.setState("component", {});
+      });
+    });
+    it("should throw if state is not an object or a function", async () => {
+      assert.throws(() => {
+        floorLamp.setState("component", null);
+      });
+      assert.throws(() => {
+        floorLamp.setState("component", undefined);
+      });
+      assert.throws(() => {
+        floorLamp.setState("component", "hello world");
+      });
+      assert.throws(() => {
+        floorLamp.setState("component", 123);
+      });
+      assert.throws(() => {
+        floorLamp.setState("component", true);
+      });
+      assert.throws(() => {
+        floorLamp.setState("component", false);
+      });
+      assert.throws(() => {
+        floorLamp.setState("component", []);
+      });
+      assert.throws(() => {
+        floorLamp.setState("component", () => {});
       });
     });
   });
