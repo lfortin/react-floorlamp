@@ -99,15 +99,30 @@ describe("react-floorlamp", () => {
       });
     });
     it("should throw if component not found", async () => {
-      assert.throws(() => {
-        floorLamp.setState("invalid-component", {});
-      });
+      assert.throws(
+        () => {
+          floorLamp.setState("invalid-component", {});
+        },
+        (err) => {
+          assert.strictEqual(err.message, `Component "invalid-component" not found.`);
+          return true;
+        }
+      );
     });
     it("should throw if component.setState() method not found", async () => {
-      assert.throws(() => {
-        floorLamp.addComponent("component", {});
-        floorLamp.setState("component", {});
-      });
+      assert.throws(
+        () => {
+          floorLamp.addComponent("component", {});
+          floorLamp.setState("component", {});
+        },
+        (err) => {
+          assert.strictEqual(
+            err.message,
+            `Component "component" does not have a setState method.`
+          );
+          return true;
+        }
+      );
     });
     it("should throw if state is not an object or a function", async () => {
       floorLamp.addComponent("component", {});
