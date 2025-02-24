@@ -10,28 +10,70 @@ To install the latest stable version of `react-floorlamp`:
 
     npm install react-floorlamp
 
-# React State Management in 3 Easy Steps
+# React State Management in 2 Easy Steps
 
-Manage state efficiently across your React components in three easy steps.
+Manage state efficiently across your React components in two easy steps.
 
-## Step 1: Create Your Instance of FloorLamp
+## Step 1: Bind a functional component using the useFloorLamp hook
 
-First, create an instance of `FloorLamp` in a module.
+First, bind a functional component using the `useFloorLamp` hook.
 
-```javascript
-// in a file: floor-lamp.js
-import { FloorLamp } from "react-floorlamp";
+```jsx
+import { useFloorLamp } from "react-floorlamp";
 
-export const floorLamp = new FloorLamp();
+function LightBulb() {
+  const [ state, setState ] = useFloorLamp("LightBulb", { on: false, caption: "Light is off" });
+
+  const toggleLight = () => {
+    setState(prevState => ({
+      on: !prevState.on,
+      caption: prevState.on ? "Light is off" : "Light is on",
+    }));
+  };
+
+  return (
+    <div>
+      <button onClick={toggleLight}>
+        {state.on ? "Turn off" : "Turn on"} the light
+      </button>
+      <p>{state.caption}</p>
+    </div>
+  );
+}
 ```
 
-## Step 2: Bind a React.Component Instance
+## Step 2: Update the State from Anywhere
 
-Next, bind a React component instance in its lifecycle methods. You can do this in the `componentDidMount` method, where you register the component, and in the `componentWillUnmount` method to ensure proper cleanup.
+You can update the state from anywhere in your application by calling setState using the `floorLamp` instance.
+
+```javascript
+import { floorLamp } from "react-floorlamp";
+
+// passing an object
+floorLamp.setState("LightBulb", { on: true, caption: "Light is on" }, () => {
+  // optional callback
+});
+
+// passing an updater function
+floorLamp.setState("LightBulb", prevState => {
+  let count = prevState.count || 0;
+  count++;
+
+  return {
+    on: !prevState.on,
+    caption: prevState.on ? "Light is off" : "Light is on",
+    count: count
+  };
+});
+```
+
+# Binding a React.Component Instance
+
+`react-floorlamp` also supports binding a React.Component instance in its lifecycle methods. You can do this in the `componentDidMount` method, where you register the component, and in the `componentWillUnmount` method to ensure proper cleanup.
 
 ```jsx
 import React from "react";
-import { floorLamp } from "./floor-lamp.js";
+import { floorLamp } from "react-floorlamp";
 
 class CaptionDisplay extends React.Component {
   constructor(props) {
@@ -64,68 +106,6 @@ class CaptionDisplay extends React.Component {
       </div>
     );
   }
-}
-```
-
-## Step 3: Update the State from Anywhere
-
-You can update the state from anywhere in your application by calling setState using the `FloorLamp` instance.
-
-```javascript
-import { floorLamp } from "./floor-lamp.js";
-
-// passing an object
-floorLamp.setState("CaptionDisplay", { caption: "hello world" }, () => {
-  // optional callback
-});
-
-// passing an updater function
-floorLamp.setState("CaptionDisplay", prevState => {
-  let count = prevState.count || 0;
-  count++;
-
-  return {
-    caption: "hello world",
-    count: count
-  };
-});
-```
-
-## Binding a Mock Component Using a State Hook
-
-You can also bind a mock component using a state hook for functional components.
-
-```jsx
-import { useState, useEffect } from "react";
-import { floorLamp } from "./floor-lamp.js";
-
-function CaptionDisplay(props) {
-  const [caption, setCaption] = useState("Default Caption");
-
-  const mockComponent = {
-    setState: (state) => {
-      if (typeof state === 'function') {
-        // state might be an updater function :)
-      }
-      if (state.caption) {
-        setCaption(state.caption);
-      }
-    },
-  };
-
-  useEffect(() => {
-    floorLamp.addComponent("CaptionDisplay", mockComponent);
-    return () => {
-      floorLamp.removeComponent("CaptionDisplay");
-    };
-  }, []);
-
-  return (
-    <div>
-      <h1>Caption Display</h1>
-      <p>{caption}</p>
-    </div>
-  );
 }
 ```
 
