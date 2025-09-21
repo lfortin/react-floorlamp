@@ -15,6 +15,13 @@
   "main": "./floorlamp.js",
   "type": "commonjs",
   "types": "./floorlamp.d.ts",
+  "exports": {
+    ".": {
+      "import": "./floorlamp.mjs",
+      "require": "./floorlamp.js",
+      "types": "./floorlamp.d.ts"
+    }
+  },
   "peerDependencies": {
     "@types/react": "^19.0.1",
     "react": "*"
