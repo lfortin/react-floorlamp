@@ -50,9 +50,7 @@ You can update the state from anywhere in your application by calling setState u
 import { floorLamp } from "react-floorlamp";
 
 // passing an object
-floorLamp.setState("LightBulb", { on: true, caption: "Light is on" }, () => {
-  // optional callback
-});
+floorLamp.setState("LightBulb", { on: true, caption: "Light is on" });
 
 // passing an updater function
 floorLamp.setState("LightBulb", prevState => {
